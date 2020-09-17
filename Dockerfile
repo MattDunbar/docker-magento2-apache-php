@@ -1,4 +1,4 @@
-FROM php:7.2-apache
+FROM php:7.1-apache
 MAINTAINER Fabrizio Balliano <fabrizio@fabrizioballiano.com>
 
 RUN apt-get update \
@@ -29,6 +29,10 @@ RUN docker-php-ext-configure \
     bcmath \
     soap \
     sockets
+
+RUN pecl install mcrypt
+
+RUN docker-php-ext-enable mcrypt
 
 ADD https://raw.githubusercontent.com/colinmollenhour/credis/master/Client.php /credis.php
 ADD php.ini /usr/local/etc/php/conf.d/888-fballiano.ini
